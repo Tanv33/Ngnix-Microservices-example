@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+
+  nginx:
+    build: ./nginx
+    container_name: ms_nginx
+    links:
+      - auth:auth
+      - ecommerce:ecommerce
+      - oms:oms
+    ports:
+      - "8080:8080"
+  auth:
+    build: ./auth
+    environment:
+      - SERVER_PORT=5000
+    # ports:
+    #   - "5000"
+  ecommerce:
+    build: ./ecommerce
+    environment:
+      - SERVER_PORT=7000
+    # ports:
+    #   - "7000"
+  oms:
+    build: ./oms
+    environment:
+      - SERVER_PORT=8000
+    # ports:
+    #   - "8000"
